@@ -405,8 +405,8 @@ def kernel_product(params, x, y, *bs, mode=None, backend=None, dtype='float32', 
     # gamma should have been generated along the lines of "Variable(torch.Tensor([1/(s**2)])).type(dtype)"
     gamma   = params["gamma"]
 
-    if not gamma.__class__ in [tuple, list]: gamma = (gamma,)
-    if not     x.__class__ in [tuple, list]:     x = (x,)
-    if not     y.__class__ in [tuple, list]:     y = (y,)
+    if gamma.__class__ not in [tuple, list]: gamma = (gamma,)
+    if     x.__class__ not in [tuple, list]:     x = (x,)
+    if     y.__class__ not in [tuple, list]:     y = (y,)
 
     return FeaturesKP(kernel, gamma, x, y, bs, mode=mode, backend=backend, dtype=dtype)
