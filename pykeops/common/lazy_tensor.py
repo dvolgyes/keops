@@ -1098,7 +1098,7 @@ class GenericLazyTensor:
                 raise ValueError("LazyTensors only support indexing with respect to their last dimension.")
         
         if isinstance(key, slice):
-            if not key.step in [None, 1]:
+            if key.step not in [None, 1]:
                 raise ValueError("LazyTensors do not support sliced indexing with stepsizes > 1.")
             if key.start is None:
                 key = slice(0, key.stop)
