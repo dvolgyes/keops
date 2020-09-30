@@ -96,12 +96,12 @@ def get_type(type_str, position_in_list=None):
         import warnings
         warnings.warn("'Vx' and 'Vy' variables types are now renamed 'Vi' and 'Vj'")
 
-    m = re.match('([a-zA-Z_][a-zA-Z_0-9]*)=(Vi|Vj|Pm)\(([0-9]*?),?([0-9]*)\)', type_str.replace(" ", ""))
+    m = re.match(r'([a-zA-Z_][a-zA-Z_0-9]*)=(Vi|Vj|Pm)\(([0-9]*?),?([0-9]*)\)', type_str.replace(" ", ""))
 
     if m is None:
-        m = re.match('(Vi|Vj|Pm)\(([0-9]*?),?([0-9]*)\)', type_str.replace(" ", ""))
+        m = re.match(r'(Vi|Vj|Pm)\(([0-9]*?),?([0-9]*)\)', type_str.replace(" ", ""))
         if m is None:
-            m = re.match('Var\(([0-9]*?),?([0-9]*),?([0-9]*)\)', type_str.replace(" ", ""))
+            m = re.match(r'Var\(([0-9]*?),?([0-9]*),?([0-9]*)\)', type_str.replace(" ", ""))
             if m is None:
                 raise ValueError(
                     type_str + " type_str does not match the 'var = [Vi|Vj|Pm](dim)' or 'var = [Vi|Vj|Pm](pos,dim) or '[Vi|Vj|Pm](dim) or '[Vi|Vj|Pm](pos,dim) or Var(pos,dim,cat)'  format: " + type_str)
@@ -134,7 +134,7 @@ def check_aliases_list(types_list):
     aliases = []
     for (i, t) in enumerate(types_list):
         name, cat, dim, pos = get_type(t, position_in_list=i)
-        if name == None:
+        if name is None:
             aliases.append("Var(" + str(pos) + "," + str(dim) + "," + str(cat) + ")")
         else:
             aliases.append(name + " = " + list(categories.keys())[cat] + "(" + str(pos) + "," + str(dim) + ")")
