@@ -8,10 +8,10 @@ from pykeops.common.set_path import create_name, set_build_folder
 
 def TestChunkedTiles(formula):
     import re
-    if re.search(".*Reduction\(Sum\((Square|Abs)\(\(Var\(.*?\) . Var\(.*?\)\)\)\).*?\)", formula) is not None:
+    if re.search(r".*Reduction\(Sum\((Square|Abs)\(\(Var\(.*?\) . Var\(.*?\)\)\)\).*?\)", formula) is not None:
         dim = [0, 0]
         for k in range(2):
-            varstr = re.findall("Var\(.,.*?," + str(k) + "\)", formula)[0]
+            varstr = re.findall(r"Var\(.,.*?," + str(k) + "\)", formula)[0]
             loc = re.search(",.*?,", varstr).span()
             loc = loc[0] + 1, loc[1] - 1
             dim[k] = int(varstr[loc[0]:loc[1]])
